@@ -1,0 +1,20 @@
+{
+  "name": "fund-transfer-system",
+  "version": "1.0.0",
+  "description": "Fund Transfer System for NEFT, RTGS, and IMPS with beneficiaries, OTP mock, limits, receipts, history, notifications, admin tools, and REST APIs.",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node server/server.js"
+  },
+  "keywords": [
+    "bank",
+    "fund-transfer",
+    "neft",
+    "rtgs",
+    "imps",
+    "rest-api"
+  ],
+  "author": "Codex",
+  "license": "MIT"
+}

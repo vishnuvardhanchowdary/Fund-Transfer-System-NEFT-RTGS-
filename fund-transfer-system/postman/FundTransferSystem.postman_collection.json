@@ -1,0 +1,202 @@
+{
+  "info": {
+    "name": "Fund Transfer System - NEFT RTGS IMPS",
+    "description": "Postman collection for the Fund Transfer System REST API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "beneficiaryId",
+      "value": "ben-1001"
+    },
+    {
+      "key": "transactionId",
+      "value": "TXN260501093001"
+    },
+    {
+      "key": "otp",
+      "value": "123456"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/health"
+      }
+    },
+    {
+      "name": "Dashboard",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/dashboard"
+      }
+    },
+    {
+      "name": "Limits",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/limits"
+      }
+    },
+    {
+      "name": "Update IMPS Limit",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"perTransaction\": 250000,\n  \"daily\": 700000,\n  \"fee\": 6\n}"
+        },
+        "url": "{{baseUrl}}/api/limits/IMPS"
+      }
+    },
+    {
+      "name": "List Beneficiaries",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/beneficiaries"
+      }
+    },
+    {
+      "name": "Add Beneficiary",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Riya Kapoor\",\n  \"nickname\": \"Riya Home\",\n  \"bank\": \"Axis Bank\",\n  \"accountNumber\": \"910020003333\",\n  \"ifsc\": \"UTIB0001234\",\n  \"type\": \"Savings\"\n}"
+        },
+        "url": "{{baseUrl}}/api/beneficiaries"
+      }
+    },
+    {
+      "name": "Initiate Transfer",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const json = pm.response.json();",
+              "if (json.transaction) pm.collectionVariables.set('transactionId', json.transaction.id);",
+              "if (json.otp) pm.collectionVariables.set('otp', json.otp);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"beneficiaryId\": \"{{beneficiaryId}}\",\n  \"method\": \"IMPS\",\n  \"amount\": 25000,\n  \"remarks\": \"Project payment\"\n}"
+        },
+        "url": "{{baseUrl}}/api/transfers/initiate"
+      }
+    },
+    {
+      "name": "Verify OTP",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"otp\": \"{{otp}}\"\n}"
+        },
+        "url": "{{baseUrl}}/api/transfers/{{transactionId}}/verify-otp"
+      }
+    },
+    {
+      "name": "List Transactions",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/transactions"
+      }
+    },
+    {
+      "name": "Track Transaction",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/transactions/{{transactionId}}"
+      }
+    },
+    {
+      "name": "Download Receipt PDF",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/transactions/{{transactionId}}/receipt.pdf"
+      }
+    },
+    {
+      "name": "Download Transactions CSV",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/transactions.csv"
+      }
+    },
+    {
+      "name": "Notifications",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/notifications"
+      }
+    },
+    {
+      "name": "Mark Notifications Read",
+      "request": {
+        "method": "PATCH",
+        "url": "{{baseUrl}}/api/notifications/read-all"
+      }
+    },
+    {
+      "name": "Admin Audit",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/admin/audit"
+      }
+    },
+    {
+      "name": "Admin Update Transaction Status",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"Settled\"\n}"
+        },
+        "url": "{{baseUrl}}/api/transactions/{{transactionId}}/status"
+      }
+    }
+  ]
+}

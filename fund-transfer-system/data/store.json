@@ -1,0 +1,121 @@
+{
+  "accounts": [
+    {
+      "id": "acc-1001",
+      "name": "Aarav Sharma",
+      "accountNumber": "604500123456",
+      "ifsc": "NOVA0001209",
+      "branch": "MG Road Digital Branch",
+      "balance": 875000,
+      "currency": "INR"
+    }
+  ],
+  "limits": {
+    "NEFT": {
+      "perTransaction": 500000,
+      "daily": 1500000,
+      "availableToday": 1500000,
+      "fee": 2.5,
+      "window": "24x7 batches"
+    },
+    "RTGS": {
+      "perTransaction": 1000000,
+      "daily": 2500000,
+      "availableToday": 2500000,
+      "fee": 25,
+      "window": "Bank working hours"
+    },
+    "IMPS": {
+      "perTransaction": 200000,
+      "daily": 500000,
+      "availableToday": 500000,
+      "fee": 5,
+      "window": "Instant 24x7"
+    }
+  },
+  "beneficiaries": [
+    {
+      "id": "ben-1001",
+      "name": "Meera Nair",
+      "nickname": "Meera Rent",
+      "bank": "HDFC Bank",
+      "accountNumber": "501001229988",
+      "ifsc": "HDFC0001492",
+      "type": "Savings",
+      "status": "Active",
+      "createdAt": "2026-05-01T09:30:00.000Z"
+    },
+    {
+      "id": "ben-1002",
+      "name": "Omkar Traders",
+      "nickname": "Vendor",
+      "bank": "ICICI Bank",
+      "accountNumber": "778812340011",
+      "ifsc": "ICIC0002150",
+      "type": "Current",
+      "status": "Active",
+      "createdAt": "2026-05-03T12:45:00.000Z"
+    }
+  ],
+  "otps": {},
+  "transactions": [
+    {
+      "id": "TXN260501093001",
+      "fromAccountId": "acc-1001",
+      "beneficiaryId": "ben-1001",
+      "beneficiaryName": "Meera Nair",
+      "method": "NEFT",
+      "amount": 32500,
+      "fee": 2.5,
+      "remarks": "Monthly rent",
+      "status": "Settled",
+      "utr": "NOVA26050193001",
+      "createdAt": "2026-05-01T09:30:01.000Z",
+      "updatedAt": "2026-05-01T09:32:04.000Z",
+      "timeline": [
+        {
+          "label": "Transfer Created",
+          "time": "2026-05-01T09:30:01.000Z"
+        },
+        {
+          "label": "OTP Verified",
+          "time": "2026-05-01T09:30:40.000Z"
+        },
+        {
+          "label": "Bank Processing",
+          "time": "2026-05-01T09:31:05.000Z"
+        },
+        {
+          "label": "Settled",
+          "time": "2026-05-01T09:32:04.000Z"
+        }
+      ]
+    }
+  ],
+  "notifications": [
+    {
+      "id": "note-1001",
+      "type": "success",
+      "title": "Transfer settled",
+      "message": "NEFT TXN260501093001 was credited to Meera Nair.",
+      "read": false,
+      "createdAt": "2026-05-01T09:32:04.000Z"
+    },
+    {
+      "id": "note-1002",
+      "type": "info",
+      "title": "IMPS limit refreshed",
+      "message": "Your IMPS daily transfer limit is available again.",
+      "read": true,
+      "createdAt": "2026-05-02T00:05:00.000Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "audit-1001",
+      "actor": "system",
+      "action": "Seed data initialized",
+      "createdAt": "2026-05-01T09:00:00.000Z"
+    }
+  ]
+}
